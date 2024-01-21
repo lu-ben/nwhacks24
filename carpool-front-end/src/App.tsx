@@ -1,4 +1,5 @@
 import './App.css'
+import Map from "./pages/Map.tsx"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { Home } from './pages/Home.tsx'
 
@@ -9,6 +10,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" index element={<Home/>}/>
+          <Route path="/map" element={<Map/>}/>
         </Routes>
       </BrowserRouter>
     </div>
