@@ -16,8 +16,14 @@ const addUser = async (user_id) => {
         const users = database.collection(COLLECTION);
   
         const doc = { user_id: user_id };
-        const result = await users.insertOne(doc);
-        return result;
+
+        const existingUser = await users.findOne(doc);
+        if (!existingUser){
+            const result = await users.insertOne(doc);
+            return result;
+        } else {
+            return {};
+        }
       } finally {
         await client.close();
       }
