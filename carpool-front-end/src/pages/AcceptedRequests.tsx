@@ -46,6 +46,7 @@ export const AcceptedRequests = () => {
                 to={card.to}
                 date={card.date}
                 add={false}
+                onClick={console.log()}
               />
             </div>
           ))}
@@ -62,11 +63,11 @@ export const AcceptedRequests = () => {
       {isModalOpen && selectedCard && (
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" onClick={() => setIsModalOpen(false)}>
           <div className=" rounded-lg bg-black shadow-lg w-full" onClick={e => e.stopPropagation()}>
-          <Modal 
-            imgSrc={selectedCard.imgSrc} 
-            name={selectedCard.name} 
-            title={selectedCard.title} 
-            number={selectedCard.number} 
+          <Modal
+            imgSrc={selectedCard.imgSrc}
+            name={selectedCard.name}
+            title={selectedCard.title}
+            number={selectedCard.number}
           />
         </div>
         </div>
