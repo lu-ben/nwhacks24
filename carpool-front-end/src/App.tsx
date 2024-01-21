@@ -1,7 +1,7 @@
 import './App.css'
+import { Home } from './pages/Home.tsx'
 import Map from "./pages/Map.tsx"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import { Home } from './pages/Home.tsx'
 
 function App() {
 
