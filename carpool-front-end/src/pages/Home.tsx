@@ -7,6 +7,7 @@ import axios from 'axios';
 
 import request from "../assets/request.svg";
 import pickup from "../assets/pickup.svg";
+import car from "../assets/car.svg";
 import { useNavigate } from "react-router-dom";
 
 const SERVERHOST = 3000
@@ -40,7 +41,7 @@ function Home() {
 
   return (
     <div>
-      {isAuthenticated ? <Header back={false} info={`Welcome ${user?.name} to`} underlined="Carpool" marginBottom="mb-8" children={
+      {isAuthenticated ? <Header back={false} info={`Welcome ${user?.name} to`} underlined="Poolpal" marginBottom="mb-8" children={
         <div className="flex flex-col items-center text-black">
           <div className="flex flex-col items-center justify-center bg-light-gray rounded-3xl p-4 w-full h-72 mb-8" onClick={requestRide}>
             <img src={request} />
@@ -64,7 +65,7 @@ function Home() {
         </div>
 
         <div className="flex flex-col justify-center items-center mt-12">
-          <img src="https://picsum.photos/200/300" alt="Profile pic" className="rounded-full h-64 w-64 object-cover mb-4"/>
+          <img src={car} alt="Car pic" className="rounded-full bg-light-gray h-54 w-54 object-cover mb-4 p-6"/>
           <div className="mb-4"></div>
           <LoginButton/>
         </div>
