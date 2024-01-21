@@ -3,9 +3,7 @@ import MapComponent from "../components/MapComponent"
 import { Autocomplete } from "@react-google-maps/api"
 
 function Map() {
-    const [location, setLocation] = useState({ lat: null, lng: null });
-    // const [locationName, setLocationName]
-    // const [locationAddr, setLocationAddr]
+    const [location, setLocation] = useState({coordinates:{ lat: null, lng: null }, name: null, address: null});
     const autocompleteRef = useRef(null);
 
     const onPlaceChanged = () => {
@@ -15,11 +13,15 @@ function Map() {
           if (place.geometry) {
             const lat = place.geometry.location.lat();
             const lng = place.geometry.location.lng();
+            const coordinates = { lat, lng };
+            const name = place.name;
+            const address = place.formatted_address;
     
-            setLocation({ lat, lng }); // Update the location state
-            console.log(place);
+            setLocation({coordinates, name, address}); // Update the location state
+            console.log(coordinates);
+            console.log(name);
+            console.log(address);
     
-            // Now, MapComponent will re-render with the new location
           } else {
             console.log("No geometry data available for the selected place");
           }
@@ -37,7 +39,7 @@ function Map() {
         <input id="autocomplete" placeholder="Enter a place" type="text" />
       </Autocomplete>
         
-        <MapComponent location={location}/>
+        <MapComponent location={location.coordinates}/>
       </div>
     )
   }
