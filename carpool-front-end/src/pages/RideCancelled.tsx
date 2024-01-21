@@ -1,7 +1,10 @@
+import { useNavigate } from "react-router";
 import { Header } from "../components/Header";
 
 export const RideCancelled = () => {
-  return(
+  const navigate = useNavigate();
+
+  return (
     <div>
       <Header back={false} info="Due to unforseen circumstances..." underlined="" marginBottom="mb-12" children={
           <div className="flex flex-col text-white text-center text-2xl rounded-3xl w-full px-6 py-10 mb-8">
@@ -11,7 +14,7 @@ export const RideCancelled = () => {
             </div>
           </div>
       }/>
-      <div className="underline text-white text-2xl">New Request</div>
+      <div className="underline text-white text-2xl" onClick={() => navigate("../")} >Back to Home</div>
     </div>
   )
 }

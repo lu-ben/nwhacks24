@@ -3,8 +3,10 @@ import { MdArrowRightAlt } from "react-icons/md";
 import { Card } from "../components/Card";
 import { Header } from "../components/Header";
 import { Modal } from "../components/Modal";
+import { useNavigate } from "react-router-dom";
 
 export const AcceptedRequests = () => {
+  const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState<any>(null);
 
@@ -13,7 +15,7 @@ export const AcceptedRequests = () => {
       imgSrc: "https://picsum.photos/200/300",
       to: "dd",
       from: "ubc",
-      date: "Jan 21",
+      time: "Jan 21",
       name: "John Smith",
       title: "Student at UBC",
       number: "4376578912"
@@ -22,7 +24,7 @@ export const AcceptedRequests = () => {
       imgSrc: "https://picsum.photos/200/300",
       to: "here",
       from: "there",
-      date: "May 17",
+      time: "May 17",
       name: "Mary Janes",
       title: "Professor at UBC",
       number: "2266568273"
@@ -36,7 +38,7 @@ export const AcceptedRequests = () => {
 
   return (
     <div>
-      <Header back={false} info="You are currently viewing" underlined="Accepted Requests" marginBottom="mb-12" children={
+      <Header back info="You are currently viewing" underlined="Accepted Requests" marginBottom="mb-12" onClick={() => navigate("../")} children={
         <div className="mb-1">
           {requests.map((card, index) => (
             <div key={index} onClick={() => handleCardClick(card)}>
@@ -44,7 +46,7 @@ export const AcceptedRequests = () => {
                 imgSrc={card.imgSrc}
                 from={card.from}
                 to={card.to}
-                date={card.date}
+                time={card.time}
                 add={false}
               />
             </div>
@@ -56,17 +58,17 @@ export const AcceptedRequests = () => {
           <div className="text-lg mr-2">Start Trip</div><MdArrowRightAlt size={32} />
         </div>
         <div className="mt-4">
-          <div className="underline text-xl">more requests</div>
+          <div className="underline text-xl" onClick={() =>{ navigate("../viewRequests")}}>more requests</div>
         </div>
       </div>
       {isModalOpen && selectedCard && (
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" onClick={() => setIsModalOpen(false)}>
           <div className=" rounded-lg bg-black shadow-lg w-full" onClick={e => e.stopPropagation()}>
-          <Modal 
-            imgSrc={selectedCard.imgSrc} 
-            name={selectedCard.name} 
-            title={selectedCard.title} 
-            number={selectedCard.number} 
+          <Modal
+            imgSrc={selectedCard.imgSrc}
+            name={selectedCard.name}
+            title={selectedCard.title}
+            number={selectedCard.number}
           />
         </div>
         </div>

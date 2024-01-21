@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { MdArrowBack } from "react-icons/md";
 import LogoutButton from "./LogoutButton";
 
@@ -7,18 +6,15 @@ type HeaderProps = {
   info: string;
   underlined: string;
   marginBottom: string;
+  onClick?: any;
   children?: any;
 }
 
-export const Header = ({ back, info, underlined, marginBottom, children }: HeaderProps) => {
-	const navigate = useNavigate();
-  const goBack = () => {
-		navigate(-1);
-	}
+export const Header = ({ back, info, underlined, marginBottom, onClick, children }: HeaderProps) => {
   return (
     <div>
       <div className="mb-12 h-4 flex">
-        {back && <div className="text-4xl" onClick={goBack}><MdArrowBack/></div>}
+        {back && <div className="text-4xl" onClick={onClick}><MdArrowBack/></div>}
         <div className="ml-auto"><LogoutButton /></div>
       </div>
 

@@ -8,7 +8,7 @@ const libraries:any = ['places'];
 
 import axios from 'axios';
 import { useAuth0 } from "@auth0/auth0-react";
-
+import { useNavigate } from 'react-router';
 
 const SERVERHOST = 3000;
 
@@ -31,96 +31,96 @@ function Post() {
     setSelectedPeriod(newPeriod);
   };
 
+  const [fromLocation, setFromLocation] = useState({coordinates:{ lat: null, lng: null }, name: null, address: null});
+  const [toLocation, setToLocation] = useState({coordinates:{ lat: null, lng: null }, name: null, address: null});
 
+  // Separate refs for each Autocomplete
+  const fromAutocompleteRef = useRef(null);
+  const toAutocompleteRef = useRef(null);
 
-    const [fromLocation, setFromLocation] = useState({coordinates:{ lat: null, lng: null }, name: null, address: null});
-    const [toLocation, setToLocation] = useState({coordinates:{ lat: null, lng: null }, name: null, address: null});
-
-    // Separate refs for each Autocomplete
-    const fromAutocompleteRef = useRef(null);
-    const toAutocompleteRef = useRef(null);
-
-    // Handler for 'from' location change
-    const onFromPlaceChanged = () => {
-      if (fromAutocompleteRef.current) {
-        const place = fromAutocompleteRef.current.getPlace();
-        updateLocation(place, setFromLocation);
-        console.log(fromLocation);
-      }
-    };
-
-    // Handler for 'to' location change
-    const onToPlaceChanged = () => {
-      if (toAutocompleteRef.current) {
-        const place = toAutocompleteRef.current.getPlace();
-        updateLocation(place, setToLocation);
-        console.log(toLocation);
-
-      }
-    };
-  
-    function uploadPost() {
-      const user_id = user?.sub;
-      console.log(user);
-      const origin = fromLocation.address;
-      const destination = toLocation.address;
-      const time = `${selectedHour}:${selectedMinute}${selectedPeriod}`;
-      const currentDate = new Date();
-      const formattedDate = currentDate.toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit'
-      });
-      const date = formattedDate
-      const status = "available";
-      const lat = fromLocation.coordinates.lat;
-      const lon = fromLocation.coordinates.lng;
-
-      const post = {user_id: user_id,
-        origin: origin,
-        destination: destination,
-        time: time,
-        date: date,
-        status: status,
-        lat: lat,
-        lon: lon,
-      };
-      
-      axios.post(`http://localhost:${SERVERHOST}/rideRequests/add`, post)
-      .then(response => {
-        // navigate("/waitingRide")
-        console.log('Success:', response.data);
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
+  // Handler for 'from' location change
+  const onFromPlaceChanged = () => {
+    if (fromAutocompleteRef.current) {
+      const place = fromAutocompleteRef.current.getPlace();
+      updateLocation(place, setFromLocation);
+      console.log(fromLocation);
     }
+  };
 
-    // Common method to update location state
-    const updateLocation = (place: any, setLocation: any) => {
-      if (place.geometry) {
-        const lat = place.geometry.location.lat();
-        const lng = place.geometry.location.lng();
-        const coordinates = { lat, lng };
-        const name = place.name;
-        const address = place.formatted_address;
+  // Handler for 'to' location change
+  const onToPlaceChanged = () => {
+    if (toAutocompleteRef.current) {
+      const place = toAutocompleteRef.current.getPlace();
+      updateLocation(place, setToLocation);
+      console.log(toLocation);
 
-        setLocation({coordinates, name, address}); // Update the respective location state
-        console.log(coordinates);
-        console.log(name);
-        console.log(address);
-      } else {
-        console.log("No geometry data available for the selected place");
-      }
-    };
-    const { isLoaded } = useLoadScript({
-      googleMapsApiKey: 'AIzaSyAjTvqcJJNiY8sxeSUGeu5pO9ck4bQ41lo', // Use your API key
-      libraries,
+    }
+  };
+
+  function uploadPost() {
+    const user_id = user?.sub;
+    console.log(user);
+    const origin = fromLocation.address;
+    const destination = toLocation.address;
+    const time = `${selectedHour}:${selectedMinute}${selectedPeriod}`;
+    const currentDate = new Date();
+    const formattedDate = currentDate.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
     });
+    const date = formattedDate
+    const status = "available";
+    const lat = fromLocation.coordinates.lat;
+    const lon = fromLocation.coordinates.lng;
+
+    const post = {user_id: user_id,
+      origin: origin,
+      destination: destination,
+      time: time,
+      date: date,
+      status: status,
+      lat: lat,
+      lon: lon,
+    };
+
+    axios.post(`http://localhost:${SERVERHOST}/rideRequests/add`, post)
+    .then(response => {
+      // navigate("/waitingRide")
+      console.log('Success:', response.data);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+  }
+
+  // Common method to update location state
+  const updateLocation = (place: any, setLocation: any) => {
+    if (place.geometry) {
+      const lat = place.geometry.location.lat();
+      const lng = place.geometry.location.lng();
+      const coordinates = { lat, lng };
+      const name = place.name;
+      const address = place.formatted_address;
+
+      setLocation({coordinates, name, address}); // Update the respective location state
+      console.log(coordinates);
+      console.log(name);
+      console.log(address);
+    } else {
+      console.log("No geometry data available for the selected place");
+    }
+  };
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: 'AIzaSyAjTvqcJJNiY8sxeSUGeu5pO9ck4bQ41lo', // Use your API key
+    libraries,
+  });
+
+  const navigate = useNavigate();
 
     return (
       <div>
-        <Header back info="You are currently" underlined="Waiting for a ride" marginBottom='mb-8'
+        <Header back info="You are currently" underlined="Waiting for a ride" marginBottom='mb-8' onClick={() => navigate("../")}
           children={
             <div>
               <div className="bg-light-gray text-black rounded-3xl w-full p-4 mb-4 items-center grid grid-flow-row">
@@ -154,7 +154,7 @@ function Post() {
               <div className="bg-light-gray text-black rounded-3xl w-full p-4 mb-4 items-center grid grid-flow-row">
                 <div className="m-1 text-left">
                   <p className="font-bold">Time: </p>
-                  <SliderTimePicker 
+                  <SliderTimePicker
                     initialHour={selectedHour}
                     initialMinute={selectedMinute}
                     initialPeriod={selectedPeriod}

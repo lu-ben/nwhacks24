@@ -16,12 +16,6 @@ const SERVERHOST = 3000
 function Home() {
   const { user, isAuthenticated } = useAuth0();
   const navigate = useNavigate();
-  const acceptRequests = () => {
-		navigate("./viewRequests");
-	}
-  const requestRide = () => {
-		navigate("./post");
-	}
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -43,12 +37,12 @@ function Home() {
     <div>
       {isAuthenticated ? <Header back={false} info={`Welcome ${user?.name} to`} underlined="Poolpal" marginBottom="mb-8" children={
         <div className="flex flex-col items-center text-black">
-          <div className="flex flex-col items-center justify-center bg-light-gray rounded-3xl p-4 w-full h-72 mb-8" onClick={requestRide}>
+          <div className="flex flex-col items-center justify-center bg-light-gray rounded-3xl p-4 w-full h-72 mb-8" onClick={() => navigate("./post")}>
             <img src={request} />
             <div className="text-3xl">Request a ride</div>
           </div>
 
-          <div className="flex flex-col items-center justify-center bg-light-gray rounded-3xl p-4 w-full h-72" onClick={acceptRequests}>
+          <div className="flex flex-col items-center justify-center bg-light-gray rounded-3xl p-4 w-full h-72" onClick={() => navigate("./viewRequests")}>
             <img src={pickup} />
             <div className="text-3xl">Pick-up passengers</div>
           </div>
