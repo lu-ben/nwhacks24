@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const {
-  addRide,
-  getRides,
-  deleteRide,
-} = require("../dbService/ridesdb.js");
+  addUser,
+  getUsers,
+  deleteUser,
+} = require("../dbService/usersdb.js");
 
 
 router.post("/add", async (req, res) => {
@@ -15,20 +15,14 @@ router.post("/add", async (req, res) => {
   const time = req.body.time;
   const date = req.body.date;
 
-  const rides = await addRide(user_id, origin, destination, time, date);
-  res.send(rides);
+  const users = await addUser(user_id, origin, destination, time, date);
+  res.send(users);
 });
 
 router.get("/get", async (req, res) => {
 
-  const rides = await getRides();
-  res.send(rides);
+  const users = await getUsers();
+  res.send(users);
 });
-
-router.delete("/delete/:id", async (req, res) => {
-    const id = req.params.id;
-    const result = await deleteRide(id);
-    res.send(result);
-  });
 
 module.exports = router;

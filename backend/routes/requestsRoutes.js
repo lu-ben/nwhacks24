@@ -19,7 +19,7 @@ router.post("/add", async (req, res) => {
   res.send(rideRequests);
 });
 
-router.get("/", async (req, res) => {
+router.get("/get", async (req, res) => {
 
   const rideRequests = await getRequests();
   res.send(rideRequests);

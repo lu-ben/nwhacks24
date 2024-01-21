@@ -3,6 +3,7 @@ const app = express();
 const cors = require('cors');
 const rideRequestsRouter = require('./routes/requestsRoutes.js'); 
 const ridesRouter = require('./routes/ridesRoutes.js'); 
+const usersRouter = require('./routes/usersRoutes.js'); 
 
 
 const port = 3000;
@@ -12,8 +13,16 @@ app.use(express.json());
 app.get('/', (req, res) => {
     res.send('GET request to the homepage')
 })
+
+/*
+ .../{Router}/add
+ .../{Router}/delete/{id}
+ .../{Router}/get
+
+ */
 app.use('/rideRequests', rideRequestsRouter); 
 app.use('/rides', ridesRouter); 
+app.use('/users', usersRouter); 
 
 app.listen(port, () => {
   console.log(`Node.js HTTP server is running on port ${port}`);
