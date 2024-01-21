@@ -33,6 +33,9 @@ function Home() {
     axios.post(`http://localhost:${SERVERHOST}/users/add`, user)
     .then(response => {
       console.log('Success:', response.data);
+      // if (!response.data.profile_complete) {
+      //   navigate('/editProfile');
+      // }
     })
     .catch(error => {
       console.error('Error:', error);

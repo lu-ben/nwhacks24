@@ -68,9 +68,30 @@ const getRequests = async () => {
     return result;
   };
 
+  const modifyRequest = async (id, status) => {
+    const modifyRequest = async (id, status) => {
+      try {
+        await client.connect();
+        const database = client.db(DATABASE);
+        const rideRequests = database.collection(COLLECTION);
+
+        const result = await rideRequests.updateOne(
+          { _id: new ObjectId(id) },
+          { $set: { status: status } }
+        );
+        return result;
+      } finally {
+        await client.close();
+      }
+    };
+    const result = await modifyRequest(id, status);
+    return result;
+  };
+
   module.exports = {
     addRequest,
     getRequests,
     deleteRequest,
+    modifyRequest,
   };
   
