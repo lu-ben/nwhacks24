@@ -17,11 +17,12 @@ export const Header = ({ back, info, underlined, marginBottom, children }: Heade
 	}
   return (
     <div>
-        <div className="mb-12 h-4 flex">
-          {back && <div className="text-4xl" onClick={goBack}><MdArrowBack/></div>}
-          <div className="ml-auto"><LogoutButton /></div>
-        </div>
-      <div className={`text-white w-1/2 ${marginBottom}`}>
+      <div className="mb-12 h-4 flex">
+        {back && <div className="text-4xl" onClick={goBack}><MdArrowBack/></div>}
+        <div className="ml-auto"><LogoutButton /></div>
+      </div>
+
+      <div className={`text-white w-3/4 ${marginBottom}`}>
         <div className="text-left">
           <div className="text-xl">{info}</div>
           <div className="underline text-4xl mt-1">{underlined}</div>
