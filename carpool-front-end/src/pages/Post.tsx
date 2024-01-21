@@ -29,7 +29,7 @@ function Post() {
     };
 
     // Common method to update location state
-    const updateLocation = (place, setLocation) => {
+    const updateLocation = (place: any, setLocation: any) => {
       if (place.geometry) {
         const lat = place.geometry.location.lat();
         const lng = place.geometry.location.lng();
@@ -54,7 +54,7 @@ function Post() {
               <div className="flex bg-light-gray text-black rounded-3xl w-full p-4 mb-4 items-center grid grid-flow-row">
                 <div className="m-1 text-left">
                   <p className="font-bold">From: </p>
-                  <Autocomplete onLoad={(autocomplete) => (fromAutocompleteRef.current = autocomplete)} onPlaceChanged={onFromPlaceChanged}>
+                  <Autocomplete onLoad={(autocomplete:any) => (fromAutocompleteRef.current = autocomplete)} onPlaceChanged={onFromPlaceChanged}>
                     <input className="w-full h-8" id="from-autocomplete" placeholder="Enter a place" type="text" />
                   </Autocomplete>
                 </div>
@@ -66,7 +66,7 @@ function Post() {
               <div className="flex bg-light-gray text-black rounded-3xl w-full p-4 mb-4 items-center grid grid-flow-row">
                 <div className="m-1 text-left">
                   <p className="font-bold">To: </p>
-                  <Autocomplete onLoad={(autocomplete) => (toAutocompleteRef.current = autocomplete)} onPlaceChanged={onToPlaceChanged}>
+                  <Autocomplete onLoad={(autocomplete:any) => (toAutocompleteRef.current = autocomplete)} onPlaceChanged={onToPlaceChanged}>
                     <input className="w-full h-8" id="to-autocomplete" placeholder="Enter a place" type="text" />
                   </Autocomplete>
                 </div>

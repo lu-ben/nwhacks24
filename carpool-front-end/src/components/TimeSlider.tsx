@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 function SliderTimePicker() {
   const [hour, setHour] = useState(12);
   const [minute, setMinute] = useState(30);
   const [period, setPeriod] = useState('AM');
 
-  const handlePeriodChange = (e) => {
+  const handlePeriodChange = (e: any) => {
     setPeriod(e.target.value);
   };
 
@@ -19,7 +19,7 @@ function SliderTimePicker() {
           min="00" 
           max="12" 
           value={hour} 
-          onChange={(e) => setHour(e.target.value)}
+          onChange={(e: any) => setHour(e.target.value)}
         />
       </div>
       <div>
@@ -29,7 +29,7 @@ function SliderTimePicker() {
           min="0" 
           max="59" 
           value={minute} 
-          onChange={(e) => setMinute(e.target.value)}
+          onChange={(e: any) => setMinute(e.target.value)}
         />
       </div>
       <div className='text-center gap-x-10'>
