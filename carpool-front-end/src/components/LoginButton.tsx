@@ -5,7 +5,7 @@ const LoginButton = () => {
 
     return (
         !isAuthenticated && (
-            <div className="border border-white py-2 px-4 rounded-md cursor-pointer" onClick={() => loginWithRedirect()}>
+            <div className="text-3xl py-2 px-4 underline cursor-pointer" onClick={() => loginWithRedirect()}>
                 Sign In
             </div>
         )
