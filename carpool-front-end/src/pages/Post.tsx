@@ -64,7 +64,7 @@ function Post() {
   
     function uploadPost() {
       const user_id = user?.sub;
-      console.log(user);
+
       const origin = fromLocation.address;
       const destination = toLocation.address;
       const time = `${selectedHour}:${selectedMinute}${selectedPeriod}`;
