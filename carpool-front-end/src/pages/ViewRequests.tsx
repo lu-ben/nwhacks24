@@ -22,8 +22,8 @@ export const ViewRequests = () => {
   const fetchRequests = async () => {
     axios.get(`http://localhost:${SERVERHOST}/rideRequests/get`)
     .then(response => {
-      setRideRequests(response.data); 
-
+      const availableRequests = response.data.filter(request => request.status === 'available');
+      setRideRequests(availableRequests); 
     })
     .catch(error => {
       console.error('Error:', error);
@@ -73,6 +73,7 @@ export const ViewRequests = () => {
                 to={card.destination}
                 time={card.time}
                 date={card.date}
+                add
               />
             ))}
         </div>
