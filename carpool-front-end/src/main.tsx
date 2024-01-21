@@ -9,15 +9,17 @@ const clientID = "OuErazrSEoYaZOsU2nVlFOSsZSn80okZ"
 const domain =  `https://dev-l6lnsoau0gp3zbze.us.auth0.com`;
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <Auth0Provider
-        domain={domain}
-        clientId={clientID}
-        authorizationParams={{
-          redirect_uri: window.location.origin
-        }}
-      >
-        <App />
-    </Auth0Provider>,
-  </React.StrictMode>,
+  
+  <Auth0Provider
+    domain={domain}
+    clientId={clientID}
+    authorizationParams={{
+      redirect_uri: window.location.origin
+    }}
+  >
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>,
+  </Auth0Provider>,
+
 )
