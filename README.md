@@ -1,10 +1,5 @@
 # nwhacks24
 
-<img width="372" alt="image" src="https://github.com/lu-ben/nwhacks24/assets/84468266/b6d392a2-d5ae-423c-a66d-2b17ff077c77">
-<img width="642" alt="image" src="https://github.com/lu-ben/nwhacks24/assets/84468266/363a69ee-8018-4c84-9779-316928af4520">
-<img width="270" alt="image" src="https://github.com/lu-ben/nwhacks24/assets/84468266/97f5bf82-e37f-42e2-a11c-00e0ef4e0658">
-
-
 ## Inspiration
 We want a more sustainable way for individuals to travel from point A to point B, by sharing a ride.
 
@@ -33,3 +28,9 @@ Back-end:
 APIs:
 - Google Maps API
 - Auth0
+
+## Figma Design
+
+<img width="372" alt="image" src="https://github.com/lu-ben/nwhacks24/assets/84468266/b6d392a2-d5ae-423c-a66d-2b17ff077c77">
+<img width="642" alt="image" src="https://github.com/lu-ben/nwhacks24/assets/84468266/363a69ee-8018-4c84-9779-316928af4520">
+<img width="270" alt="image" src="https://github.com/lu-ben/nwhacks24/assets/84468266/97f5bf82-e37f-42e2-a11c-00e0ef4e0658">
