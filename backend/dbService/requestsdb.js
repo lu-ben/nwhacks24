@@ -6,22 +6,22 @@ const client = new MongoClient(url);
 const COLLECTION = "requests"
 const DATABASE = "carpool"
 
-const addRequest = async (user_id, origin, destination, time, date) => {
-    const insert = async (user_id, origin, destination, time, date) => {
+const addRequest = async (user_id, origin, destination, time, date, status, lat, lon) => {
+    const insert = async (user_id, origin, destination, time, date, status, lat, lon) => {
       try {
         await client.connect();
         const database = client.db(DATABASE);
         const rideRequests = database.collection(COLLECTION);
   
         const doc = { user_id: user_id, origin: origin, destination: destination,
-                    time: time, date: date, };
+                    time: time, date: date, status: status, lat: lat, lon: lon};
         const result = await rideRequests.insertOne(doc);
         return result;
       } finally {
         await client.close();
       }
     };
-    const result = await insert(user_id, origin, destination, time, date);
+    const result = await insert(user_id, origin, destination, time, date, status, lat, lon);
     return result;
   };
 
@@ -33,7 +33,8 @@ const getRequests = async () => {
           const rideRequests = database.collection(COLLECTION);
     
           const query = {};
-          const options = { projection: { _id: 1, user_id: 1, origin: 1, destination: 1, time: 1, date: 1 } };
+          const options = { projection: { _id: 1, user_id: 1, origin: 1, destination: 1, time: 1, 
+                            date: 1 , status: 1, lat: 1, lon:1} };
           const cursor = rideRequests.find(query, options);
           const result = [];
           await cursor.forEach((entry) => {
