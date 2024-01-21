@@ -6,6 +6,7 @@ import {BrowserRouter, Routes, Route} from "react-router-dom"
 import { ViewRequests } from './pages/ViewRequests.tsx'
 import { WaitingRide } from './pages/WaitingRide.tsx'
 import { RideAccepted } from './pages/RideAccepted.tsx'
+import { RideCancelled } from './pages/RideCancelled.tsx'
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
           <Route path="/viewRequests" element={<ViewRequests/>}/>
           <Route path="/waitingRide" element={<WaitingRide/>}/>
           <Route path="/rideAccepted" element={<RideAccepted/>}/>
+          <Route path="/rideCancelled" element={<RideCancelled/>}/>
         </Routes>
       </BrowserRouter>
     </div>
