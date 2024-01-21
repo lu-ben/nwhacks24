@@ -5,6 +5,7 @@ const {
   getRequests,
   deleteRequest,
   modifyRequest,
+  updateRequest,
 } = require("../dbService/requestsdb.js");
 
 
@@ -26,6 +27,13 @@ router.post("/add", async (req, res) => {
 router.get("/get", async (req, res) => {
 
   const rideRequests = await getRequests();
+  res.send(rideRequests);
+});
+
+router.post("/update", async (req, res) => {
+  const id = req.body.id;
+  const driver_id = req.body.driver_id;
+  const rideRequests = await updateRequest(id, driver_id);
   res.send(rideRequests);
 });
 
