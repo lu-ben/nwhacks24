@@ -2,63 +2,50 @@
 import { useEffect, useState } from "react";
 import { Card } from "../components/Card";
 import { Header } from "../components/Header";
+import { useAuth0 } from "@auth0/auth0-react";
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
 const SERVERHOST = 3000;
 
 export const ViewRequests = () => {
   const [rideRequests, setRideRequests] = useState([]);
-
-  useEffect(() => {
-    fetchRequests();
-
-    const intervalId = setInterval(() => {
-      fetchRequests();
-    }, 5000); 
-
-    return () => clearInterval(intervalId);
-  }, []); 
+  const { user } = useAuth0();
+  const navigate = useNavigate();
 
   const fetchRequests = async () => {
     try {
       const response = await axios(`http://localhost:${SERVERHOST}/rideRequests/get`);
       const availableRequests = response.data.filter(request => request.status === 'available');
-      setRideRequests(availableRequests); 
+      // TODO: Allow users to upload their own profile photos
+      const updatedRequests = availableRequests.map((item) => ({...item, imgSrc: "https://picsum.photos/200/300"}))
+      setRideRequests(updatedRequests); 
     } catch (error) {
       console.log(error);
     }
   }
 
-  const fakeData = [{
-    imgSrc: "https://picsum.photos/200/300",
-    "user_id": 789,
-    "origin": "UBC",
-    "destination": "Downtown Vancouver",
-    "time": "3pm",
-    "date": "1/20/2024",
-    "status": "done",
-    "lat": 49.2606,
-    "lon": 123.2460},
-    {
-      imgSrc: "https://picsum.photos/200/300",
-      "user_id": 123,
-      "origin": "PNE",
-      "destination": "UBC",
-      "time": "2pm",
-      "date": "1/20/2024",
-      "status": "available",
-      "lat": 49.2816,
-      "lon": 123.0362},
-      {
-        imgSrc: "https://picsum.photos/200/300",
-        "user_id": 456,
-        "origin": "Richmond Centre",
-        "destination": "UBC",
-        "time": "3pm",
-        "date": "1/20/2024",
-        "status": "pending",
-        "lat": 49.1673,
-        "lon": 123.1384}]
+  const handleAddRequest = async (id: string) => {
+    const body = {
+      id,
+      driver_id: user?.sub
+    }
+    await axios.post(`http://localhost:${SERVERHOST}/rideRequests/update`, body)
+    .then(() => {
+      navigate("/acceptedRequests")
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+  }
+
+  useEffect(() => {
+    fetchRequests();
+    const intervalId = setInterval(() => {
+      fetchRequests();
+    }, 5000); 
+    return () => clearInterval(intervalId);
+  }, [])
 
   return (
     
@@ -73,6 +60,7 @@ export const ViewRequests = () => {
                 time={card.time}
                 date={card.date}
                 add
+                onClick={() => handleAddRequest(card._id)}
               />
             ))}
         </div>
