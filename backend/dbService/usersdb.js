@@ -8,18 +8,18 @@ const COLLECTION = "users"
 const DATABASE = "carpool"
 
 
-const addUser = async (user_id) => {
-    const insert = async (user_id) => {
+const addUser = async (user_info) => {
+    const insert = async (user_info) => {
       try {
         await client.connect();
         const database = client.db(DATABASE);
         const users = database.collection(COLLECTION);
   
-        const doc = { user_id: user_id };
+        const userdoc = { sub: user_info.sub }; // sub is user_id
 
-        const existingUser = await users.findOne(doc);
+        const existingUser = await users.findOne(userdoc);
         if (!existingUser){
-            const result = await users.insertOne(doc);
+            const result = await users.insertOne(user_info);
             return result;
         } else {
             return {};
@@ -28,7 +28,7 @@ const addUser = async (user_id) => {
         await client.close();
       }
     };
-    const result = await insert(user_id);
+    const result = await insert(user_info);
     return result;
   };
 

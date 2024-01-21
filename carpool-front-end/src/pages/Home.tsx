@@ -11,12 +11,12 @@ function Home() {
 
   useEffect(() => {
     if (isAuthenticated) {
-      uploadUser(user?.sub); 
+      uploadUser();
     }
   }, [user, isAuthenticated]);
 
-  function uploadUser(user_info: string | undefined) {
-    axios.post(`http://localhost:${SERVERHOST}/users/add`, {user_id: user_info})
+  function uploadUser() {
+    axios.post(`http://localhost:${SERVERHOST}/users/add`, user)
     .then(response => {
       console.log('Success:', response.data);
     })

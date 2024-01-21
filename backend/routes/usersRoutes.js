@@ -8,9 +8,10 @@ const {
 
 router.post("/add", async (req, res) => {
 
-  const user_id = req.body.user_id;
+  const user_info = req.body
 
-  const users = await addUser(user_id);
+
+  const users = await addUser(user_info);
   res.send(users);
 });
 
