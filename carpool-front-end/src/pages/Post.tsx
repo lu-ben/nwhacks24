@@ -6,8 +6,33 @@ import SliderTimePicker from '../components/TimeSlider';
 
 const libraries:any = ['places'];
 
+import axios from 'axios';
+import { useAuth0 } from "@auth0/auth0-react";
+
+
+const SERVERHOST = 3000;
 
 function Post() {
+  const { user } = useAuth0();
+
+  const [selectedHour, setSelectedHour] = useState(12);
+  const [selectedMinute, setSelectedMinute] = useState(30);
+  const [selectedPeriod, setSelectedPeriod] = useState('AM');
+
+  const handleHourChange = (newHour) => {
+    setSelectedHour(newHour);
+  };
+
+  const handleMinuteChange = (newMinute) => {
+    setSelectedMinute(newMinute);
+  };
+
+  const handlePeriodChange = (newPeriod) => {
+    setSelectedPeriod(newPeriod);
+  };
+
+
+
     const [fromLocation, setFromLocation] = useState({coordinates:{ lat: null, lng: null }, name: null, address: null});
     const [toLocation, setToLocation] = useState({coordinates:{ lat: null, lng: null }, name: null, address: null});
 
@@ -20,6 +45,7 @@ function Post() {
       if (fromAutocompleteRef.current) {
         const place = fromAutocompleteRef.current.getPlace();
         updateLocation(place, setFromLocation);
+        console.log(fromLocation);
       }
     };
 
@@ -28,8 +54,47 @@ function Post() {
       if (toAutocompleteRef.current) {
         const place = toAutocompleteRef.current.getPlace();
         updateLocation(place, setToLocation);
+        console.log(toLocation);
+
       }
     };
+  
+    function uploadPost() {
+      const user_id = user?.sub;
+      console.log(user);
+      const origin = fromLocation.address;
+      const destination = toLocation.address;
+      const time = `${selectedHour}:${selectedMinute}${selectedPeriod}`;
+      const currentDate = new Date();
+      const formattedDate = currentDate.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+      });
+      const date = formattedDate
+      const status = "available";
+      const lat = fromLocation.coordinates.lat;
+      const lon = fromLocation.coordinates.lng;
+
+      const post = {user_id: user_id,
+        origin: origin,
+        destination: destination,
+        time: time,
+        date: date,
+        status: status,
+        lat: lat,
+        lon: lon,
+      };
+      
+      axios.post(`http://localhost:${SERVERHOST}/rideRequests/add`, post)
+      .then(response => {
+        // navigate("/waitingRide")
+        console.log('Success:', response.data);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    }
 
     // Common method to update location state
     const updateLocation = (place: any, setLocation: any) => {
@@ -63,7 +128,7 @@ function Post() {
                   <p className="font-bold mb-2">From: </p>
                   {
                     isLoaded ? <Autocomplete onLoad={(autocomplete:any) => (fromAutocompleteRef.current = autocomplete)} onPlaceChanged={onFromPlaceChanged}>
-                    <input className="w-full h-8 bg-white text-black rounded-lg pl-2" id="from-autocomplete" placeholder="Enter a place" type="text" />
+                    <input className="bg-white rounded w-full h-8 bg-white text-black rounded-lg pl-2" id="from-autocomplete" placeholder="Enter a place" type="text" />
                   </Autocomplete> : null
                   }
                 </div>
@@ -77,7 +142,7 @@ function Post() {
                   <p className="font-bold mb-2">To: </p>
                   {
                   isLoaded ?   <Autocomplete onLoad={(autocomplete:any) => (toAutocompleteRef.current = autocomplete)} onPlaceChanged={onToPlaceChanged}>
-                    <input className="w-full h-8 bg-white text-black rounded-lg pl-2" id="to-autocomplete" placeholder="Enter a place" type="text" />
+                    <input className="bg-white rounded w-full h-8 bg-white text-black rounded-lg pl-2" id="to-autocomplete" placeholder="Enter a place" type="text" />
                   </Autocomplete> : null
                   }
                 </div>
@@ -89,12 +154,18 @@ function Post() {
               <div className="bg-light-gray text-black rounded-3xl w-full p-4 mb-4 items-center grid grid-flow-row">
                 <div className="m-1 text-left">
                   <p className="font-bold">Time: </p>
-                  <SliderTimePicker />
+                  <SliderTimePicker 
+                    initialHour={selectedHour}
+                    initialMinute={selectedMinute}
+                    initialPeriod={selectedPeriod}
+                    onHourChange={handleHourChange}
+                    onMinuteChange={handleMinuteChange}
+                    onPeriodChange={handlePeriodChange}/>
                 </div>
               </div>
 
               <div>
-                <button className='bg-light-gray text-black font-bold'>Submit</button>
+                <button onClick={uploadPost} className='bg-light-gray text-black font-bold'>Submit</button>
               </div>
             </div>
           }
