@@ -14,8 +14,11 @@ router.post("/add", async (req, res) => {
   const destination = req.body.destination;
   const time = req.body.time;
   const date = req.body.date;
+  const status = req.body.status;
+  const lat = req.body.lat;
+  const lon = req.body.lon;
 
-  const rideRequests = await addRequest(user_id, origin, destination, time, date);
+  const rideRequests = await addRequest(user_id, origin, destination, time, date, status, lat, lon);
   res.send(rideRequests);
 });
 

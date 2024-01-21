@@ -30,6 +30,37 @@ export const ViewRequests = () => {
     });
   }
 
+  const fakeData = [{
+    imgSrc: "https://picsum.photos/200/300",
+    "user_id": 789,
+    "origin": "UBC",
+    "destination": "Downtown Vancouver",
+    "time": "3pm",
+    "date": "1/20/2024",
+    "status": "done",
+    "lat": 49.2606,
+    "lon": 123.2460},
+    {
+      imgSrc: "https://picsum.photos/200/300",
+      "user_id": 123,
+      "origin": "PNE",
+      "destination": "UBC",
+      "time": "2pm",
+      "date": "1/20/2024",
+      "status": "available",
+      "lat": 49.2816,
+      "lon": 123.0362},
+      {
+        imgSrc: "https://picsum.photos/200/300",
+        "user_id": 456,
+        "origin": "Richmond Centre",
+        "destination": "UBC",
+        "time": "3pm",
+        "date": "1/20/2024",
+        "status": "pending",
+        "lat": 49.1673,
+        "lon": 123.1384}]
+
   return (
     
     <div>
