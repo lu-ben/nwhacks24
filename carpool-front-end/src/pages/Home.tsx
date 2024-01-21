@@ -5,12 +5,19 @@ import LoginButton from "../components/LoginButton"
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from 'axios';
 
-const SERVERHOST = 3000
 import request from "../assets/request.svg";
 import pickup from "../assets/pickup.svg";
+import { useNavigate } from "react-router-dom";
+
+const SERVERHOST = 3000
+
 
 function Home() {
   const { user, isAuthenticated } = useAuth0();
+  const navigate = useNavigate();
+  const acceptRequests = () => {
+		navigate("./viewRequests");
+	}
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -37,7 +44,7 @@ function Home() {
             <div className="text-3xl">Request a ride</div>
           </div>
 
-          <div className="flex flex-col items-center justify-center bg-light-gray rounded-3xl p-4 w-full h-72">
+          <div className="flex flex-col items-center justify-center bg-light-gray rounded-3xl p-4 w-full h-72" onClick={acceptRequests}>
             <img src={pickup} />
             <div className="text-3xl">Pick-up passengers</div>
           </div>
