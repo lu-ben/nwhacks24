@@ -5,11 +5,11 @@ const LogoutButton = () => {
 
   return (
     isAuthenticated && (
-      <button onClick={() => 
+      <div className="cursor-pointer text-lg" onClick={() =>
         logout({ logoutParams: { returnTo: window.location.origin } })}
       >
         Sign Out
-      </button>
+      </div>
     )
   )
 }
