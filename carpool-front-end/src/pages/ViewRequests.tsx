@@ -32,7 +32,7 @@ export const ViewRequests = () => {
   return (
     <div>
       <Header back info="You are currently" underlined="Accepting Requests" marginBottom="mb-12" children={
-        <div className="">
+        <div>
             {requests.map((card) => (
               <Card
                 imgSrc={card.imgSrc}
