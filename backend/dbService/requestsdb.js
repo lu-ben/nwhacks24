@@ -16,7 +16,6 @@ const addRequest = async (user_id, origin, destination, time, date) => {
         const doc = { user_id: user_id, origin: origin, destination: destination,
                     time: time, date: date, };
         const result = await rideRequests.insertOne(doc);
-        console.log(`A document was inserted with the _id: ${result.insertedId}`);
         return result;
       } finally {
         await client.close();
@@ -56,11 +55,9 @@ const getRequests = async () => {
         await client.connect();
         const database = client.db(DATABASE);
         const rideRequests = database.collection(COLLECTION);
-        console.log(id);
         const query = { _id: new ObjectId(id) };
   
         const result = await rideRequests.deleteOne(query);
-        console.log(`${result.deletedCount} document(s) deleted`);
         return result;
       } finally {
         await client.close();

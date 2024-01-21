@@ -18,7 +18,6 @@ const addUser = async (user_id, origin, destination, time, date) => {
         const doc = { user_id: user_id, origin: origin, destination: destination,
                     time: time, date: date, };
         const result = await users.insertOne(doc);
-        console.log(`A document was inserted with the _id: ${result.insertedId}`);
         return result;
       } finally {
         await client.close();
@@ -53,30 +52,9 @@ const getUsers = async () => {
       return result;
   };
 
-const deleteUser = async (id) => {
-    const deleteValue = async (id) => {
-      try {
-        await client.connect();
-        const database = client.db(DATABASE);
-        const users = database.collection(COLLECTION);
-  
-        const query = { _id: new ObjectId(id) };
-  
-        const result = await users.deleteOne(query);
-        console.log(`${result.deletedCount} document(s) deleted`);
-        return result;
-      } finally {
-        await client.close();
-      }
-    };
-    const result = await deleteValue(id);
-    return result;
-  };
-
   module.exports = {
     addUser,
     getUsers,
-    deleteUser,
 
   };
   

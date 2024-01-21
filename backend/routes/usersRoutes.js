@@ -3,7 +3,6 @@ const router = express.Router();
 const {
   addUser,
   getUsers,
-  deleteUser,
 } = require("../dbService/usersdb.js");
 
 
