@@ -14,20 +14,19 @@ export const ViewRequests = () => {
 
     const intervalId = setInterval(() => {
       fetchRequests();
-    }, 5000); // 10 seconds
+    }, 5000); 
 
     return () => clearInterval(intervalId);
   }, []); 
 
   const fetchRequests = async () => {
-    axios.get(`http://localhost:${SERVERHOST}/rideRequests/get`)
-    .then(response => {
+    try {
+      const response = await axios(`http://localhost:${SERVERHOST}/rideRequests/get`);
       const availableRequests = response.data.filter(request => request.status === 'available');
       setRideRequests(availableRequests); 
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   const fakeData = [{
