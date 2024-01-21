@@ -1,43 +1,46 @@
 
+import { useEffect, useState } from "react";
 import { Card } from "../components/Card";
 import { Header } from "../components/Header";
+import axios from 'axios';
+
+const SERVERHOST = 3000;
 
 export const ViewRequests = () => {
-  const requests = [
-    {
-      imgSrc: "https://picsum.photos/200/300",
-      to: "dd",
-      from: "ubc",
-      date: "Jan 21",
-    },
-    {
-      imgSrc: "https://picsum.photos/200/300",
-      to: "here",
-      from: "there",
-      date: "May 17",
-    },
-    {
-      imgSrc: "https://picsum.photos/200/300",
-      to: "dd",
-      from: "ubc",
-      date: "Jan 20",
-    },
-    {
-      imgSrc: "https://picsum.photos/200/300",
-      to: "dd",
-      from: "ubc",
-      date: "this date",
-    }
-  ]
+  const [rideRequests, setRideRequests] = useState([]);
+
+  useEffect(() => {
+    fetchRequests();
+
+    const intervalId = setInterval(() => {
+      fetchRequests();
+    }, 5000); // 10 seconds
+
+    return () => clearInterval(intervalId);
+  }, []); 
+
+  const fetchRequests = async () => {
+    axios.get(`http://localhost:${SERVERHOST}/rideRequests/get`)
+    .then(response => {
+      setRideRequests(response.data); 
+
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+  }
+
   return (
+    
     <div>
       <Header back info="You are currently" underlined="Accepting Requests" marginBottom="mb-12" children={
-        <div>
-            {requests.map((card) => (
-              <Card
+        <div >
+            {rideRequests.map((card) => (
+              <Card key={card._id}
                 imgSrc={card.imgSrc}
-                from={card.from}
-                to={card.to}
+                from={card.origin}
+                to={card.destination}
+                time={card.time}
                 date={card.date}
               />
             ))}
