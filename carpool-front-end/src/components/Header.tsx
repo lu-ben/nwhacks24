@@ -23,7 +23,7 @@ export const Header = ({ back, info, underlined, marginBottom, children }: Heade
         </div>
       <div className={`text-white w-3/5 ${marginBottom}`}>
         <div className="text-left">
-          <div className="text-lg">{info}</div>
+          <div className="text-xl">{info}</div>
           <div className="underline text-4xl mt-1">{underlined}</div>
         </div>
       </div>
