@@ -1,4 +1,4 @@
-import { GoogleMap, useLoadScript, Marker} from '@react-google-maps/api';
+import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
 
 const libraries:any = ['places'];
 const mapContainerStyle = {
@@ -6,7 +6,7 @@ const mapContainerStyle = {
   height: '50vw',
 };
 const presetCenter = { //UBC's location
-  lat: 49.2606, // default latitude 
+  lat: 49.2606, // default latitude
   lng: -123.2460, // default longitude
 };
 
@@ -15,6 +15,7 @@ const MapComponent = ({ location }:any) => {
     googleMapsApiKey: 'AIzaSyAjTvqcJJNiY8sxeSUGeu5pO9ck4bQ41lo', // Use your API key
     libraries,
   });
+
 
   // Determine the center based on the provided location or use the preset center
   const center = location && location.lat && location.lng ? location : presetCenter;
@@ -26,10 +27,10 @@ const MapComponent = ({ location }:any) => {
   if (!isLoaded) {
     return <div>Loading maps</div>;
   }
-  
+
 
   return (
-    <div> 
+    <div>
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         zoom={14}

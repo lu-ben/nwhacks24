@@ -4,7 +4,7 @@ type CardProps = {
   imgSrc: string;
   to: string;
   from: string;
-  time: string;
+  time?: string;
   date: string;
   add: boolean;
 }
