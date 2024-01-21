@@ -15,7 +15,7 @@ export const Header = ({ back, info, underlined, marginBottom, children }: Heade
 		navigate(-1);
 	}
   return (
-    <div>
+    <div className="bg-dark-gray">
       {back ?
         <div className="mb-12 h-4 flex">
           <div className="text-4xl" onClick={goBack}><MdArrowBack/></div>

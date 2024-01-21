@@ -31,15 +31,17 @@ function Map() {
     return (
       <div>
         <h1> Map Test</h1>
-
-        <Autocomplete
-        onLoad={(autocomplete) => (autocompleteRef.current = autocomplete)}
-        onPlaceChanged={onPlaceChanged}
-      >
+        <div>
+            <Autocomplete
+                onLoad={(autocomplete) => (autocompleteRef.current = autocomplete)}
+                onPlaceChanged={onPlaceChanged}
+            >
         <input id="autocomplete" placeholder="Enter a place" type="text" />
-      </Autocomplete>
-        
+        </Autocomplete>
+        </div>
+        <div>
         <MapComponent location={location.coordinates}/>
+        </div>
       </div>
     )
   }
