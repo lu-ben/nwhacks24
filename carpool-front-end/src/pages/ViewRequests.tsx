@@ -39,6 +39,7 @@ export const ViewRequests = () => {
                 from={card.from}
                 to={card.to}
                 date={card.date}
+                add
               />
             ))}
         </div>
