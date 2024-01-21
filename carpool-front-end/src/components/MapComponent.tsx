@@ -1,16 +1,16 @@
 import { GoogleMap, useLoadScript, Marker} from '@react-google-maps/api';
 
-const libraries = ['places'];
+const libraries:any = ['places'];
 const mapContainerStyle = {
-  width: '50vw',
-  height: '50vh',
+  width: '100%',
+  height: '50vw',
 };
 const presetCenter = { //UBC's location
   lat: 49.2606, // default latitude 
   lng: -123.2460, // default longitude
 };
 
-const MapComponent = ({ location }) => {
+const MapComponent = ({ location }:any) => {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: 'AIzaSyAjTvqcJJNiY8sxeSUGeu5pO9ck4bQ41lo', // Use your API key
     libraries,
