@@ -8,16 +8,19 @@ const libraries:any = ['places'];
 
 import axios from 'axios';
 import { useAuth0 } from "@auth0/auth0-react";
-
+import { Link, useNavigate  } from 'react-router-dom';
 
 const SERVERHOST = 3000;
 
 function Post() {
+
   const { user } = useAuth0();
 
   const [selectedHour, setSelectedHour] = useState(12);
   const [selectedMinute, setSelectedMinute] = useState(30);
   const [selectedPeriod, setSelectedPeriod] = useState('AM');
+
+  const navigate = useNavigate();
 
   const handleHourChange = (newHour) => {
     setSelectedHour(newHour);
@@ -85,10 +88,14 @@ function Post() {
         lat: lat,
         lon: lon,
       };
-      
+
       axios.post(`http://localhost:${SERVERHOST}/rideRequests/add`, post)
       .then(response => {
-        // navigate("/waitingRide")
+        navigate(`/waitingRide`, { state: { _id: response.data.insertedId, user_id: user_id,
+          origin: origin,
+        destination: destination,
+      time: time }});
+
         console.log('Success:', response.data);
       })
       .catch(error => {

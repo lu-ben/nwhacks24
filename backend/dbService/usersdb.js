@@ -16,13 +16,14 @@ const addUser = async (user_info) => {
         const users = database.collection(COLLECTION);
   
         const userdoc = { sub: user_info.sub }; // sub is user_id
+        const new_user_info = { ...user_info, profile_complete: false, phone: undefined}
 
         const existingUser = await users.findOne(userdoc);
         if (!existingUser){
-            const result = await users.insertOne(user_info);
+            const result = await users.insertOne(new_user_info);
             return result;
         } else {
-            return {};
+            return existingUser;
         }
       } finally {
         await client.close();
