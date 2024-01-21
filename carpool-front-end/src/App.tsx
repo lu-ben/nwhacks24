@@ -2,7 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import Login from "./pages/Login.tsx"
 import {BrowserRouter, Routes, Route} from "react-router-dom"
-
+import Start from './pages/Start.tsx'
 
 function App() {
 
@@ -10,7 +10,7 @@ function App() {
     <div className='App'>
       <BrowserRouter>
         <Routes>
-          <Route path="/login" exact element={<Login/>}/>
+          <Route index element={<Start/>}/>
         </Routes>
       </BrowserRouter>
       
