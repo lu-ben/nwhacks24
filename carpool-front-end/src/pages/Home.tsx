@@ -1,9 +1,16 @@
+
+import { useEffect } from "react";
 import { Header } from "../components/Header";
 import LoginButton from "../components/LoginButton"
 import { useAuth0 } from "@auth0/auth0-react";
+import axios from 'axios';
+
 import request from "../assets/request.svg";
 import pickup from "../assets/pickup.svg";
 import { useNavigate } from "react-router-dom";
+
+const SERVERHOST = 3000
+
 
 function Home() {
   const { user, isAuthenticated } = useAuth0();
@@ -11,6 +18,22 @@ function Home() {
   const acceptRequests = () => {
 		navigate("./viewRequests");
 	}
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      uploadUser();
+    }
+  }, [user, isAuthenticated]);
+
+  function uploadUser() {
+    axios.post(`http://localhost:${SERVERHOST}/users/add`, user)
+    .then(response => {
+      console.log('Success:', response.data);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+  }
 
   return (
     <div>
