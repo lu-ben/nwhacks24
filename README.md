@@ -21,10 +21,12 @@ Front-end:
 - React
 - TypeScript
 - Tailwind CSS
+  
 Back-end:
 - Node JS
 - Express
 - MongoDB
+  
 APIs:
 - Google Maps API
 - Auth0
